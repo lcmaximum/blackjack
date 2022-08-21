@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>No-Stakes Blackjack</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <h1>No-Stakes Blackjack</h1>
+<div id = "secret-div"><h3>Welcome! Please press Deal to begin.</h3></div>
+<div id ="layout">
+  <div class = "column" id = "column-1">
+  <div id="deal-new-game" class ="major-div">
+    <button id ="deal-button">Deal</button>
+    <button id ="hit-button">Hit</button>
+    <button id ="stand-button">Stand</button>
+    <button id = "new-game-button">New Game</button>
+  </div>
+
+   <div id = "stand" class = "major-div">
+     
+     
+   </div>
+
+    
+  </div>
+
+  <div id ="column-2" class = "column">
+    <div id = "dealer-side" class =" play-side major-div">
+      <div id = "dealer-hand" class = "hand">
+      <div class = "card face-down round-1" id ="secret-card">Face Down</div>
+        <div class = "card face-up round-1" id ="dealer-card-1"></div>
+        <div class = "extra-cards" id = "dealer-extra-cards">
+        </div></div> <div id ="dealer-score" class="score">Dealer score: 0</div></div>
+    <div id = "player-side" class ="play-side major-div">
+      <div id = "player-hand" class = "hand">
+        <div class = "card face-up round-1" id = "player-card-1"></div>
+        <div class = "card face-up round-1" id = "player-card-2"></div>
+        <div class= "extra-cards" id = "player-extra-cards">
+
+        </div>
+      </div>
+      <div id ="player-score" class='score'>Your Score:0 </div>
+    </div>  
+    </div>
+  
+
+<div id = "column-3" class = "column">
+  <div id = "deck-div" class ="major-div">
+
+    <div class = "card deck" id = "game-deck">Face Down</div>
+  
+  </div>
+  <div id ="hit" class ="major-div">
+    
+    </div>
+</div>
+</div>
+</body>
+
+</html>
