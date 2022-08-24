@@ -12,7 +12,11 @@ body {
   grid-template-rows: 300px 300px;
 }
 
-#secret-div {
+.hidden {
+  visibility: hidden;
+}
+
+#player-msg-div {
   min-height: 40px;
   max-width: 900px;
   background-color: green;
@@ -79,24 +83,24 @@ button {
   color: yellow;
 }
 
+#confirm-bet {
+  color: black;
+}
 #deal-button {
-  visibility: visible;
   border: solid yellow;
   background-color: limegreen;
 }
 
 #hit-button {
-  visibility: hidden;
   background-color: lawngreen;
 }
 #stand-button {
-  visibility: hidden;
   background-color: cadetblue;
 }
 
 #new-game-button {
   background-color: deeppink;
-  visibility: hidden;
+
   height: 25%;
   width: 100%;
 }
@@ -105,5 +109,11 @@ button {
   .layout {
     display: flex;
     flex-direction: column;
+  }
+
+  .card {
+    height: 50px;
+    width: 25px;
+    font-size: 12px;
   }
 }

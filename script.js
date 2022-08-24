@@ -18,13 +18,36 @@ class Player {
   }
 }
 
+const bank = document.getElementById("bank");
+const confirmBet = document.getElementById("confirm-bet");
+const userMoney = document.getElementById("user-money");
+const userBet = document.getElementById("user-bet");
+const betMsgArea = document.getElementById("bet-msg-area");
+let userBank = 200;
+let bet = userBet.value;
+userMoney.textContent = "$" + userBank;
+
+function placeBet() {
+  bet = parseInt(userBet.value, 10);
+  console.log("bet " + bet);
+  if (bet > userBank) {
+    betMsgArea.textContent =
+      "You cannot bet more than you have in the bank. Enter another bet.";
+  } else {
+    confirmBet.style = "border: solid 3px";
+    playerMsgDiv.textContent = "Bet set at $" + userBet.value;
+    dealBtn.style = "visibility:visible";
+  }
+}
+
+const gameplay = document.getElementById("gameplay");
 const playerScoreEl = document.getElementById("player-score");
 const dealerScoreEl = document.getElementById("dealer-score");
 
 const playerSide = document.getElementById("player-side");
 const dealerSide = document.getElementById("dealer-side");
 
-const secretDiv = document.getElementById("secret-div");
+const playerMsgDiv = document.getElementById("player-msg-div");
 
 const clubs2 = ["clubs", "♣", "2", 2, false];
 const clubs3 = ["clubs", "♣", "3", 3, false];
@@ -231,9 +254,8 @@ function dealCard(player, deck, destination) {
 
 function dealFirstRound() {
   dealBtn.style.visibility = "hidden";
-  newGameButton.style.visibility = "visible";
-  hitBtn.style.visibility = "visible";
-  standBtn.style.visibility = "visible";
+  bank.style.visibility = "hidden";
+  gameplay.style.visibility = "visible";
 
   dealCard(player1, fullDeck, firstCard);
   dealCard(dealer, fullDeck, secondCard);
@@ -262,7 +284,7 @@ function displayScore(player) {
     player.scoreEl.innerText = "Dealer's Score: " + player.score;
   } else {
     player.scoreEl.innerText = "Your Score: " + player.score;
-    secretDiv.innerText =
+    playerMsgDiv.innerText =
       "Click Hit to draw another card or Stand to end your turn.";
   }
 }
@@ -284,7 +306,7 @@ function endRound(player, dealer) {
   }
 
   console.log(result);
-  secretDiv.innerText = result;
+  playerMsgDiv.innerText = result;
   hitBtn.style.visibility = "hidden";
   standBtn.style.visibility = "hidden";
 }
@@ -317,6 +339,7 @@ function newGame() {
   location.reload();
 }
 
+confirmBet.addEventListener("click", placeBet);
 dealBtn.addEventListener("click", dealFirstRound);
 hitBtn.addEventListener("click", chooseHit.bind(null, player1));
 standBtn.addEventListener("click", chooseStand);

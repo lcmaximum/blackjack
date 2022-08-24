@@ -10,41 +10,48 @@
   </head>
   <body>
     <h1>No-Stakes Blackjack</h1>
-    <div id="secret-div"><h3>Welcome! Please press Deal to begin.</h3></div>
-    <div id="layout">
-      <div class="column" id="column-1">
-        <div id="deal-new-game" class="major-div">
-          <button id="deal-button">Deal</button>
-          <button id="hit-button">Hit</button>
-          <button id="stand-button">Stand</button>
-          <button id="new-game-button">New Game</button>
-        </div>
 
-        <div id="stand" class="major-div"></div>
-      </div>
+    <div id="bank">
+      <h3>Your bank: <span id="user-money"></span></h3>
+      <input id="user-bet" placeholder="Amount to bet" />
+      <button id="confirm-bet">Confirm</button>
+      <p id="bet-msg-area"></p>
+    </div>
 
-      <div id="column-2" class="column">
-        <div id="dealer-side" class="play-side major-div">
-          <div id="dealer-hand" class="hand">
-            <div class="card face-down round-1" id="secret-card"></div>
-            <div class="card face-up round-1" id="dealer-card-1"></div>
-            <div class="extra-cards" id="dealer-extra-cards"></div>
+    <div id="player-msg-div">
+      <h3>Welcome! Please place a bet to begin.</h3>
+    </div>
+    <div id="gameplay" class="hidden">
+      <div id="layout">
+        <div class="column" id="column-1">
+          <div id="deal-new-game" class="major-div">
+            <button id="deal-button">Deal</button>
+            <button id="hit-button">Hit</button>
+            <button id="stand-button">Stand</button>
+            <button id="new-game-button">New Game</button>
           </div>
-          <div id="dealer-score" class="score">Dealer score: 0</div>
-        </div>
-        <div id="player-side" class="play-side major-div">
-          <div id="player-hand" class="hand">
-            <div class="card face-up round-1" id="player-card-1"></div>
-            <div class="card face-up round-1" id="player-card-2"></div>
-            <div class="extra-cards" id="player-extra-cards"></div>
-          </div>
-          <div id="player-score" class="score">Your Score:0</div>
-        </div>
-      </div>
 
-      <div id="column-3" class="column">
-        <div id="deck-div" class="major-div"></div>
-        <div id="hit" class="major-div"></div>
+          <div id="stand" class="major-div"></div>
+        </div>
+
+        <div id="column-2" class="column">
+          <div id="dealer-side" class="play-side major-div">
+            <div id="dealer-hand" class="hand">
+              <div class="card face-down round-1" id="secret-card"></div>
+              <div class="card face-up round-1" id="dealer-card-1"></div>
+              <div class="extra-cards" id="dealer-extra-cards"></div>
+            </div>
+            <div id="dealer-score" class="score">Dealer score: 0</div>
+          </div>
+          <div id="player-side" class="play-side major-div">
+            <div id="player-hand" class="hand">
+              <div class="card face-up round-1" id="player-card-1"></div>
+              <div class="card face-up round-1" id="player-card-2"></div>
+              <div class="extra-cards" id="player-extra-cards"></div>
+            </div>
+            <div id="player-score" class="score">Your Score:0</div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
