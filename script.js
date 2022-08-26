@@ -36,7 +36,6 @@ function placeBet() {
   } else {
     confirmBet.style = "border: solid 3px";
     playerMsgDiv.textContent = "Bet set at $" + userBet.value;
-    dealBtn.style = "visibility:visible";
   }
 }
 
@@ -157,7 +156,7 @@ const fullDeck = [
   heartsAce
 ]; //reset button
 
-const usedIdx = [];
+let usedIdx = [];
 
 const mysteryCard = dealSecretCard();
 
@@ -169,6 +168,8 @@ console.log("d" + secondCard.innerText);
 const thirdCard = document.getElementById("player-card-2");
 
 const secretCard = document.getElementById("secret-card");
+
+let firstRoundCards = document.getElementsByClassName("round-1");
 
 const dealBtn = document.getElementById("deal-button");
 
@@ -184,7 +185,6 @@ const dealerExtraCards = document.getElementById("dealer-extra-cards");
 const dealerScore = document.getElementById("dealer-score");
 
 const playerScore = document.getElementById("player-score");
-
 const player1 = new Player(
   [],
   0,
@@ -253,10 +253,6 @@ function dealCard(player, deck, destination) {
 }
 
 function dealFirstRound() {
-  dealBtn.style.visibility = "hidden";
-  bank.style.visibility = "hidden";
-  gameplay.style.visibility = "visible";
-
   dealCard(player1, fullDeck, firstCard);
   dealCard(dealer, fullDeck, secondCard);
   dealCard(player1, fullDeck, thirdCard);
@@ -264,6 +260,7 @@ function dealFirstRound() {
   firstCard.textContent = player1.hand[0][1] + player1.hand[0][2];
   secondCard.textContent = dealer.hand[0][1] + dealer.hand[0][2];
   thirdCard.textContent = player1.hand[1][1] + player1.hand[1][2];
+  secretCard.style.visibility = "visible";
   secretCard.textContent = "???";
 }
 
@@ -291,13 +288,17 @@ function displayScore(player) {
 
 function endRound(player, dealer) {
   let result = "";
+
   if (player.score > 21) {
     revealSecretCard();
     calculateScore(dealer);
+
     result = "BUST! Dealer wins!";
   } else if (dealer.score > 21) {
+    player.isWinner = true;
     result = "BUST! You win!";
   } else if (player.score > dealer.score) {
+    player.isWinner = true;
     result = "You win!";
   } else if (player.score === dealer.score) {
     result = "Push!";
@@ -305,10 +306,14 @@ function endRound(player, dealer) {
     result = "Dealer wins!";
   }
 
-  console.log(result);
-  playerMsgDiv.innerText = result;
-  hitBtn.style.visibility = "hidden";
-  standBtn.style.visibility = "hidden";
+  if (player.isWinner) {
+    userBank += bet;
+  } else if (!(player.score === dealer.score)) {
+    userBank -= bet;
+  }
+  playerMsgDiv.innerText = result + userBank;
+
+  userMoney.textContent = userBank;
 }
 
 function chooseHit(player) {
@@ -336,7 +341,19 @@ function chooseStand() {
 }
 
 function newGame() {
-  location.reload();
+  for (let i = 0; i < firstRoundCards.length; i++) {
+    firstRoundCards[i].style.visibility = "hidden";
+  }
+  playerExtraCards.style.visibility = "hidden";
+  dealerExtraCards.style.visibility = "hidden";
+  usedIdx = [];
+  player1.score = 0;
+  playerScoreEl.textContent = "Your Score: 0";
+  player1.hand = [];
+  player1.isWinner = "";
+  dealer.score = 0;
+  dealerScoreEl.textContent = "Dealer's Score: 0";
+  dealer.hand = [];
 }
 
 confirmBet.addEventListener("click", placeBet);

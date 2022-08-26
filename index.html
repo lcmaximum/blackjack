@@ -4,36 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>No-Stakes Blackjack</title>
+    <title>Basic Blackjack</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script defer src="script.js"></script>
   </head>
   <body>
-    <h1>No-Stakes Blackjack</h1>
-
-    <div id="bank">
-      <h3>Your bank: <span id="user-money"></span></h3>
-      <input id="user-bet" placeholder="Amount to bet" />
-      <button id="confirm-bet">Confirm</button>
-      <p id="bet-msg-area"></p>
-    </div>
-
+    <h1>Basic Blackjack</h1>
     <div id="player-msg-div">
       <h3>Welcome! Please place a bet to begin.</h3>
+
+      <div id="bank">
+        <h3>Your bank: <span id="user-money"></span></h3>
+        <input id="user-bet" placeholder="Amount to bet" /><br />
+        <button id="confirm-bet">Confirm</button>
+        <p id="bet-msg-area"></p>
+      </div>
     </div>
-    <div id="gameplay" class="hidden">
-      <div id="layout">
-        <div class="column" id="column-1">
-          <div id="deal-new-game" class="major-div">
-            <button id="deal-button">Deal</button>
-            <button id="hit-button">Hit</button>
-            <button id="stand-button">Stand</button>
-            <button id="new-game-button">New Game</button>
-          </div>
 
-          <div id="stand" class="major-div"></div>
+    <div id="layout">
+      <div class="column" id="column-1">
+        <div id="deal-new-game" class="major-div">
+          <button id="deal-button">Deal</button>
+          <button id="hit-button">Hit</button>
+          <button id="stand-button">Stand</button>
+          <button id="new-game-button">New Game</button>
         </div>
-
+      </div>
+      <div id="gameplay">
         <div id="column-2" class="column">
           <div id="dealer-side" class="play-side major-div">
             <div id="dealer-hand" class="hand">

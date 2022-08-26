@@ -9,11 +9,15 @@ body {
 #layout {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 300px 300px;
+  grid-template-rows: 200px 200px;
 }
 
-.hidden {
-  visibility: hidden;
+input {
+  width: 190px;
+  height: 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  text-align: center;
 }
 
 #player-msg-div {
@@ -27,12 +31,13 @@ body {
 .column {
   display: flex;
   flex-direction: column;
-
+  border: solid;
   min-height: 600px;
 }
 
 .major-div {
-  min-height: 300px;
+  min-height: 200px;
+  border: dotted;
 }
 
 .hand {
@@ -48,11 +53,10 @@ body {
   border: solid green;
   background-color: white;
   border-radius: 20%;
-  height: 150px;
-  width: 100px;
+  height: 100px;
+  width: 75px;
   text-align: right;
-  justify-content: center;
-  align-items: center;
+
   font-size: 38px;
   margin-right: 4px;
   padding: 4px;
@@ -72,7 +76,7 @@ body {
 }
 
 .score {
-  font-size: 36px;
+  font-size: 26px;
 }
 
 button {
@@ -81,10 +85,13 @@ button {
   height: 25%;
   width: 100%;
   color: yellow;
+  border-radius: 10px;
 }
 
 #confirm-bet {
   color: black;
+  width: 200px;
+  border-radius: 10px;
 }
 #deal-button {
   border: solid yellow;
