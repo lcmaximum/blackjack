@@ -29,13 +29,15 @@ userMoney.textContent = "$" + userBank;
 
 function placeBet() {
   bet = parseInt(userBet.value, 10);
-  console.log("bet " + bet);
+
   if (bet > userBank) {
     betMsgArea.textContent =
       "You cannot bet more than you have in the bank. Enter another bet.";
   } else {
+    dealBtn.style.visibility = "visible";
     confirmBet.style = "border: solid 3px";
-    playerMsgDiv.textContent = "Bet set at $" + userBet.value;
+    playerMsgDiv.textContent =
+      "Bet set at $" + userBet.value + ". Press Deal to begin.";
   }
 }
 
@@ -163,7 +165,6 @@ const mysteryCard = dealSecretCard();
 const firstCard = document.getElementById("player-card-1");
 
 const secondCard = document.getElementById("dealer-card-1");
-console.log("d" + secondCard.innerText);
 
 const thirdCard = document.getElementById("player-card-2");
 
@@ -242,9 +243,7 @@ function dealCard(player, deck, destination) {
   let newCard = deck[idx];
   player.hand.push(newCard);
   calculateScore(player);
-  console.log(
-    "b " + player.isDealer + " " + player.hand + " , " + player.score
-  );
+
   displayScore(player);
   if (isRed(newCard)) {
     destination.style = "color:red";
@@ -253,6 +252,14 @@ function dealCard(player, deck, destination) {
 }
 
 function dealFirstRound() {
+  for (let i = 0; i < firstRoundCards.length; i++) {
+    firstRoundCards[i].style.visibility = "visible";
+  }
+
+  userBet.style.visibility = "hidden";
+  confirmBet.style.visibility = "hidden";
+  hitBtn.style.visibility = "visible";
+  standBtn.style.visibility = "visible";
   dealCard(player1, fullDeck, firstCard);
   dealCard(dealer, fullDeck, secondCard);
   dealCard(player1, fullDeck, thirdCard);
@@ -286,34 +293,34 @@ function displayScore(player) {
   }
 }
 
-function endRound(player, dealer) {
+function determineWinner() {
+  let winner = "";
   let result = "";
-
-  if (player.score > 21) {
-    revealSecretCard();
-    calculateScore(dealer);
-
-    result = "BUST! Dealer wins!";
-  } else if (dealer.score > 21) {
-    player.isWinner = true;
-    result = "BUST! You win!";
-  } else if (player.score > dealer.score) {
-    player.isWinner = true;
-    result = "You win!";
-  } else if (player.score === dealer.score) {
-    result = "Push!";
-  } else if (dealer.score > player.score) {
+  if (player1.score <= 21) {
+    if (player1.score > dealer.score || dealer.score > 21) {
+      winner = player1;
+      result = "You win!";
+    } else if (player1.score === dealer.score) {
+      result = "Push!";
+    }
+  } else {
+    winner = dealer;
     result = "Dealer wins!";
   }
-
-  if (player.isWinner) {
+  playerMsgDiv.textContent = result;
+  if (winner === player1) {
     userBank += bet;
-  } else if (!(player.score === dealer.score)) {
+  } else if (winner === dealer) {
     userBank -= bet;
   }
-  playerMsgDiv.innerText = result + userBank;
+}
 
+function endRound() {
+  determineWinner();
   userMoney.textContent = userBank;
+  hitBtn.style.visibility = "hidden";
+  standBtn.style.visibility = "hidden";
+  dealBtn.style.visibility = "hidden";
 }
 
 function chooseHit(player) {
@@ -323,9 +330,11 @@ function chooseHit(player) {
   player.extraCardDiv.appendChild(extraCard);
   dealCard(player, fullDeck, extraCard);
   calculateScore(player);
-  console.log(player.score);
-  if (player.score > 21) {
-    endRound(player1, dealer);
+
+  if (player1.score > 21) {
+    dealer.hand.push(mysteryCard);
+    revealSecretCard();
+    endRound();
   } else if (player.score === 21) {
     chooseStand(player);
   }
@@ -337,15 +346,18 @@ function chooseStand() {
   while (dealer.score < 17) {
     chooseHit(dealer);
   }
-  endRound(player1, dealer);
+  endRound();
 }
 
 function newGame() {
+  userBet.style.visibility = "visible";
+  confirmBet.style.visibility = "visible";
+  userBet.value = "";
   for (let i = 0; i < firstRoundCards.length; i++) {
     firstRoundCards[i].style.visibility = "hidden";
   }
-  playerExtraCards.style.visibility = "hidden";
-  dealerExtraCards.style.visibility = "hidden";
+  playerExtraCards.innerHTML = "";
+  dealerExtraCards.innerHTML = "";
   usedIdx = [];
   player1.score = 0;
   playerScoreEl.textContent = "Your Score: 0";
@@ -361,3 +373,4 @@ dealBtn.addEventListener("click", dealFirstRound);
 hitBtn.addEventListener("click", chooseHit.bind(null, player1));
 standBtn.addEventListener("click", chooseStand);
 newGameButton.addEventListener("click", newGame);
+
