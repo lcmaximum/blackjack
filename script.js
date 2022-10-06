@@ -1,54 +1,110 @@
-class Player {
-  constructor(
-    hand,
-    score,
-    isDealer,
-    isWinner,
-    boardSide,
-    extraCardDiv,
-    scoreEl
-  ) {
-    this.hand = hand;
-    this.score = score;
-    this.isDealer = isDealer;
-    this.isWinner = isWinner;
-    this.boardSide = boardSide;
-    this.extraCardDiv = extraCardDiv;
-    this.scoreEl = scoreEl;
-  }
-}
-
 const bank = document.getElementById("bank");
-const confirmBet = document.getElementById("confirm-bet");
+const setBet = document.getElementById("set-bet");
 const userMoney = document.getElementById("user-money");
 const userBet = document.getElementById("user-bet");
 const betMsgArea = document.getElementById("bet-msg-area");
+const confMsg = document.getElementById("confirmation-msg");
+const gameplay = document.getElementById("gameplay");
+const changeBetBtn = document.getElementById("change-bet");
+const msgSpace = document.getElementById("msg-space");
 let userBank = 200;
 let bet = userBet.value;
+let betAmt = parseInt(bet, 10);
+let toggleBankBtn = document.getElementById("hide-show-bank");
+
 userMoney.textContent = "$" + userBank;
 
-function placeBet() {
-  bet = parseInt(userBet.value, 10);
+function showBank() {
+  bank.style.height = "35%";
+}
 
-  if (bet > userBank) {
-    betMsgArea.textContent =
-      "You cannot bet more than you have in the bank. Enter another bet.";
+function shrinkBank() {
+  bank.style.height = "10%";
+}
+
+function toggleBank() {
+  if (bank.style.height === "35%") {
+    shrinkBank();
+    toggleBankBtn.textContent = "show bank";
   } else {
-    dealBtn.style.visibility = "visible";
-    confirmBet.style = "border: solid 3px";
-    playerMsgDiv.textContent =
-      "Bet set at $" + userBet.value + ". Press Deal to begin.";
+    showBank();
+    toggleBankBtn.textContent = "hide bank";
   }
 }
 
-const gameplay = document.getElementById("gameplay");
-const playerScoreEl = document.getElementById("player-score");
-const dealerScoreEl = document.getElementById("dealer-score");
+function showBlock(e) {
+  e.style.display = "block";
+}
 
-const playerSide = document.getElementById("player-side");
-const dealerSide = document.getElementById("dealer-side");
+function showInline(e) {
+  e.style.display = "inline";
+}
 
-const playerMsgDiv = document.getElementById("player-msg-div");
+function hide(e) {
+  e.style.display = "none";
+}
+
+function hideActiveButtons() {
+  hide(hitBtn);
+  hide(standBtn);
+  hide(newRoundBtn);
+}
+
+function showActiveButtons() {
+  showInline(hitBtn);
+  showInline(standBtn);
+  showInline(newRoundBtn);
+}
+
+function confirmBet() {
+  bet = userBet.value;
+  betAmt = parseInt(bet, 10);
+  if (betAmt > userBank) {
+    betMsgArea.style.color = "red";
+    betMsgArea.style.fontWeight = "700";
+    betMsgArea.textContent = "Please place a bet up to $" + userBank;
+  } else {
+    betMsgArea.style.color = "goldenrod";
+    betMsgArea.style.fontWeight = "500";
+    hide(userBet);
+    hide(setBet);
+    betMsgArea.textContent = "Bet set at $" + bet + ".";
+    msgSpace.textContent = "Press Deal to begin.";
+    showBlock(changeBetBtn);
+    gameplay.style.visibility = "visible";
+    dealBtn.style.display = "block";
+    hideActiveButtons();
+    bank.style.height = "10%";
+    toggleBankBtn.style.visibility = "visible";
+    toggleBankBtn.textContent = "show bank";
+  }
+}
+
+function changeBet() {
+  newRound();
+  showBank();
+  toggleBankBtn.style.visibility = "hidden";
+  dealerPoints.textContent = dealer.score;
+  userPoints.textContent = user.score;
+  showInline(userBet);
+  showInline(setBet);
+  userBet.value = "";
+  hide(changeBetBtn);
+  betMsgArea.textContent = "";
+  confMsg.textContent = "";
+}
+
+const dealerSpace = document.getElementById("dealer-space");
+const userSpace = document.getElementById("user-space");
+
+const scoreboard = document.getElementById("score-board");
+const dealerPoints = document.getElementById("dealer-points");
+const userPoints = document.getElementById("user-points");
+const dealBtn = document.getElementById("deal-btn");
+const hitBtn = document.getElementById("hit-btn");
+const standBtn = document.getElementById("stand-btn");
+const newRoundBtn = document.getElementById("new-round-btn");
+const mysteryCardDiv = document.createElement("div");
 
 const clubs2 = ["clubs", "♣", "2", 2, false];
 const clubs3 = ["clubs", "♣", "3", 3, false];
@@ -62,7 +118,7 @@ const clubs10 = ["clubs", "♣", "10", 10, false];
 const clubsJack = ["clubs", "♣", "J", 10, false];
 const clubsQueen = ["clubs", "♣", "Q", 10, false];
 const clubsKing = ["clubs", "♣", "K", 10, false];
-const clubsAce = ["clubs", "♣", "A", 10, true];
+const clubsAce = ["clubs", "♣", "A", 11, true];
 const diamonds2 = ["diamonds", "♦", "2", 2, false];
 const diamonds3 = ["diamonds", "♦", "3", 3, false];
 const diamonds4 = ["diamonds", "♦", "4", 4, false];
@@ -75,7 +131,7 @@ const diamonds10 = ["diamonds", "♦", "10", 10, false];
 const diamondsJack = ["diamonds", "♦", "J", 10, false];
 const diamondsQueen = ["diamonds", "♦", "Q", 10, false];
 const diamondsKing = ["diamonds", "♦", "K", 10, false];
-const diamondsAce = ["diamonds", "♦", "A", 10, true];
+const diamondsAce = ["diamonds", "♦", "A", 11, true];
 const spades2 = ["spades", "♠", "2", 2, false];
 const spades3 = ["spades", "♠", "3", 3, false];
 const spades4 = ["spades", "♠", "4", 4, false];
@@ -88,7 +144,7 @@ const spades10 = ["spades", "♠", "10", 10, false];
 const spadesJack = ["spades", "♠", "J", 10, false];
 const spadesQueen = ["spades", "♠", "Q", 10, false];
 const spadesKing = ["spades", "♠", "K", 10, false];
-const spadesAce = ["spades", "♠", "A", 10, true];
+const spadesAce = ["spades", "♠", "A", 11, true];
 const hearts2 = ["hearts", "♥", "2", 2, false];
 const hearts3 = ["hearts", "♥", "3", 3, false];
 const hearts4 = ["hearts", "♥", "4", 4, false];
@@ -101,7 +157,7 @@ const hearts10 = ["hearts", "♥", "10", 10, false];
 const heartsJack = ["hearts", "♥", "J", 10, false];
 const heartsQueen = ["hearts", "♥", "Q", 10, false];
 const heartsKing = ["hearts", "♥", "K", 10, false];
-const heartsAce = ["hearts", "♥", "A", 10, true];
+const heartsAce = ["hearts", "♥", "A", 11, true];
 
 const fullDeck = [
   clubs2,
@@ -156,221 +212,225 @@ const fullDeck = [
   heartsQueen,
   heartsKing,
   heartsAce
-]; //reset button
-
-let usedIdx = [];
-
-const mysteryCard = dealSecretCard();
-
-const firstCard = document.getElementById("player-card-1");
-
-const secondCard = document.getElementById("dealer-card-1");
-
-const thirdCard = document.getElementById("player-card-2");
-
-const secretCard = document.getElementById("secret-card");
-
-let firstRoundCards = document.getElementsByClassName("round-1");
-
-const dealBtn = document.getElementById("deal-button");
-
-const hitBtn = document.getElementById("hit-button");
-
-const standBtn = document.getElementById("stand-button");
-
-const newGameButton = document.getElementById("new-game-button");
-
-const playerExtraCards = document.getElementById("player-extra-cards");
-const dealerExtraCards = document.getElementById("dealer-extra-cards");
-
-const dealerScore = document.getElementById("dealer-score");
-
-const playerScore = document.getElementById("player-score");
-const player1 = new Player(
-  [],
-  0,
-  false,
-  false,
-  playerSide,
-  playerExtraCards,
-  playerScoreEl
-);
-const dealer = new Player(
-  [],
-  0,
-  true,
-  false,
-  dealerSide,
-  dealerExtraCards,
-  dealerScoreEl
-);
+];
 
 function isRed(card) {
-  if (card[0] === "diamonds" || card[0] === "hearts") {
+  if (card[0] === "hearts" || card[0] === "diamonds") {
     return true;
   } else {
     return false;
   }
 }
 
-function isAce(card) {
-  return card[4];
-}
+let user = {
+  hand: [],
+  score: 0,
+  isDealer: false,
+  space: userSpace
+};
 
-function generateIdx() {
-  let idx = Math.floor(Math.random() * 52);
-  if (usedIdx.includes(idx)) {
-    idx += 1;
+let dealer = {
+  hand: [],
+  score: 0,
+  isDealer: true,
+  space: dealerSpace
+};
+
+let secretDealerCard = "";
+
+const players = [user, dealer];
+//state variables
+let deck = [];
+
+//functions
+
+function shuffle() {
+  deck = [];
+  while (deck.length < 52) {
+    let num = Math.floor(Math.random() * 52);
+    if (!deck.includes(fullDeck[num])) {
+      console.log(num, fullDeck[num]);
+      deck.push(fullDeck[num]);
+    }
   }
-  usedIdx.push(idx);
-  return idx;
+  console.log(deck);
+  return deck;
 }
 
-function dealSecretCard() {
-  let idx = generateIdx();
-  let faceDownCard = fullDeck[idx];
-  return faceDownCard;
-}
-function revealSecretCard() {
-  if (isRed(mysteryCard)) {
-    secretCard.style = "color:red";
+function containsAce(hand) {
+  for (let i = 0; i < hand.length; i++) {
+    if (hand[i][4]) {
+      return true;
+    }
   }
-  secretCard.textContent = mysteryCard[1] + mysteryCard[2];
+  return false;
 }
 
-function dealCard(player, deck, destination) {
-  let idx = generateIdx();
-  let newCard = deck[idx];
-  player.hand.push(newCard);
-  calculateScore(player);
+function calculateScore() {
+  dealer.score = 0;
+  user.score = 0;
+  for (let i = 0; i < dealer.hand.length; i++) {
+    dealer.score += dealer.hand[i][3];
+  }
+  if (containsAce(dealer.hand) && dealer.score > 21) {
+    dealer.score -= 10;
+  }
+  for (let i = 0; i < user.hand.length; i++) {
+    user.score += user.hand[i][3];
+  }
+  if (containsAce(user.hand) && user.score > 21) {
+    user.score -= 10;
+  }
+}
 
-  displayScore(player);
+function displayCard(newCard, cardDiv) {
+  cardDiv.classList.add("card");
+  cardDiv.style.border = "solid black";
   if (isRed(newCard)) {
-    destination.style = "color:red";
+    cardDiv.style.color = "red";
+  } else {
+    cardDiv.style.color = "black";
   }
-  destination.textContent = newCard[1] + newCard[2];
+  cardDiv.innerHTML = newCard[2] + "<br />" + newCard[1];
+}
+
+function displayScore() {
+  dealerPoints.textContent = dealer.score;
+  userPoints.textContent = user.score;
 }
 
 function dealFirstRound() {
-  for (let i = 0; i < firstRoundCards.length; i++) {
-    firstRoundCards[i].style.visibility = "visible";
-  }
+  showActiveButtons();
+  dealer.space.appendChild(mysteryCardDiv);
+  mysteryCardDiv.style.color = "black";
+  mysteryCardDiv.classList.add("card");
+  mysteryCardDiv.textContent = "???";
+  msgSpace.textContent =
+    "Press Hit to draw another card or Stand to end your turn.";
+  console.log("1");
+  shuffle();
+  console.log("2");
+  showBlock(scoreboard);
+  hide(dealBtn);
+  showInline(hitBtn);
+  showInline(standBtn);
 
-  userBet.style.visibility = "hidden";
-  confirmBet.style.visibility = "hidden";
-  hitBtn.style.visibility = "visible";
-  standBtn.style.visibility = "visible";
-  dealCard(player1, fullDeck, firstCard);
-  dealCard(dealer, fullDeck, secondCard);
-  dealCard(player1, fullDeck, thirdCard);
+  let userCard1 = document.createElement("div");
+  let dealerCard1 = document.createElement("div");
+  let userCard2 = document.createElement("div");
 
-  firstCard.textContent = player1.hand[0][1] + player1.hand[0][2];
-  secondCard.textContent = dealer.hand[0][1] + dealer.hand[0][2];
-  thirdCard.textContent = player1.hand[1][1] + player1.hand[1][2];
-  secretCard.style.visibility = "visible";
-  secretCard.textContent = "???";
+  let newUserCard = deck.pop();
+  user.hand.push(newUserCard);
+  user.space.appendChild(userCard1);
+  displayCard(newUserCard, userCard1);
+
+  let newDealerCard = deck.pop();
+  dealer.hand.push(newDealerCard);
+  dealer.space.appendChild(dealerCard1);
+  displayCard(newDealerCard, dealerCard1);
+
+  let newUserCard2 = deck.pop();
+  user.hand.push(newUserCard2);
+  user.space.appendChild(userCard2);
+  displayCard(newUserCard2, userCard2);
+
+  secretDealerCard = deck.pop();
+
+  calculateScore();
+  displayScore();
+
+  return deck;
 }
-
-function calculateScore(player) {
-  player.score = 0;
-  player.hand.forEach(function (e) {
-    if (isAce(e) === false) {
-      player.score += e[3];
-    } else if (isAce(e) === true && player.score + 11 > 21) {
-      player.score += 1;
-    } else {
-      player.score += 11;
-    }
-  });
-}
-function displayScore(player) {
-  if (player.isDealer === true) {
-    player.scoreEl.innerText = "Dealer's Score: " + player.score;
-  } else {
-    player.scoreEl.innerText = "Your Score: " + player.score;
-    playerMsgDiv.innerText =
-      "Click Hit to draw another card or Stand to end your turn.";
-  }
-}
-
-function determineWinner() {
-  let winner = "";
-  let result = "";
-  if (player1.score <= 21) {
-    if (player1.score > dealer.score || dealer.score > 21) {
-      winner = player1;
-      result = "You win!";
-    } else if (player1.score === dealer.score) {
-      result = "Push!";
-    }
-  } else {
-    winner = dealer;
-    result = "Dealer wins!";
-  }
-  playerMsgDiv.textContent = result;
-  if (winner === player1) {
-    userBank += bet;
-  } else if (winner === dealer) {
-    userBank -= bet;
-  }
-}
-
-function endRound() {
-  determineWinner();
-  userMoney.textContent = userBank;
-  hitBtn.style.visibility = "hidden";
-  standBtn.style.visibility = "hidden";
-  dealBtn.style.visibility = "hidden";
-}
-
 function chooseHit(player) {
   let extraCard = document.createElement("div");
   extraCard.classList.add("card");
-
-  player.extraCardDiv.appendChild(extraCard);
-  dealCard(player, fullDeck, extraCard);
-  calculateScore(player);
-
-  if (player1.score > 21) {
-    dealer.hand.push(mysteryCard);
-    revealSecretCard();
+  player.space.appendChild(extraCard);
+  let newCard = deck.pop();
+  player.hand.push(newCard);
+  displayCard(newCard, extraCard);
+  calculateScore();
+  displayScore();
+  if (user.score > 21) {
+    hide(hitBtn);
+    hide(standBtn);
+    dealer.hand.push(secretDealerCard);
+    displayCard(secretDealerCard, mysteryCardDiv);
+    if (isRed(secretDealerCard)) {
+      mysteryCardDiv.style.color = "red";
+      mysteryCardDiv.style.border = "solid black";
+    }
     endRound();
-  } else if (player.score === 21) {
-    chooseStand(player);
   }
 }
 
 function chooseStand() {
-  dealer.hand.push(mysteryCard);
-  revealSecretCard();
-  while (dealer.score < 17) {
+  hide(hitBtn);
+  hide(standBtn);
+
+  dealer.hand.push(secretDealerCard);
+  displayCard(secretDealerCard, mysteryCardDiv);
+  if (isRed(secretDealerCard)) {
+    mysteryCardDiv.style.color = "red";
+    mysteryCardDiv.style.border = "solid black";
+  }
+  while (dealer.score <= 16) {
     chooseHit(dealer);
   }
   endRound();
 }
 
-function newGame() {
-  userBet.style.visibility = "visible";
-  confirmBet.style.visibility = "visible";
-  userBet.value = "";
-  for (let i = 0; i < firstRoundCards.length; i++) {
-    firstRoundCards[i].style.visibility = "hidden";
-  }
-  playerExtraCards.innerHTML = "";
-  dealerExtraCards.innerHTML = "";
-  usedIdx = [];
-  player1.score = 0;
-  playerScoreEl.textContent = "Your Score: 0";
-  player1.hand = [];
-  player1.isWinner = "";
-  dealer.score = 0;
-  dealerScoreEl.textContent = "Dealer's Score: 0";
-  dealer.hand = [];
+function endRound() {
+  determineWinner();
+  newRoundBtn.style.display = "block";
 }
 
-confirmBet.addEventListener("click", placeBet);
-dealBtn.addEventListener("click", dealFirstRound);
-hitBtn.addEventListener("click", chooseHit.bind(null, player1));
-standBtn.addEventListener("click", chooseStand);
-newGameButton.addEventListener("click", newGame);
+function determineWinner() {
+  let winner = "";
+  if (user.score > 21) {
+    winner = dealer;
+    msgSpace.textContent = "Bust! Dealer wins!";
+  } else if (dealer.score <= 21 && user.score < dealer.score) {
+    winner = dealer;
+    msgSpace.textContent = "Dealer wins!";
+  } else if (dealer.score > 21) {
+    winner = user;
+    msgSpace.textContent = "Bust! You win!";
+  } else if (user.score <= 21 && user.score > dealer.score) {
+    winner = user;
+    msgSpace.textContent = "You win!";
+  } else {
+    msgSpace.textContent = "Push! You're both winners!";
+  }
+  return findOutcome(winner);
+}
 
+function findOutcome(o) {
+  if (o === user) {
+    userBank += betAmt;
+  } else if (o === dealer) {
+    userBank -= betAmt;
+  }
+  userMoney.textContent = "$" + userBank;
+}
+
+function newRound() {
+  players.forEach((player) => (player.hand = []));
+  players.forEach((player) => (player.score = 0));
+  players.forEach((player) => (player.space.innerHTML = ""));
+  msgSpace.textContent =
+    "Press Deal to begin a new round or Change Bet to adjust your bet.";
+  userPoints.textContent = "0";
+  dealerPoints.textContent = "0";
+  hide(newRoundBtn);
+  hide(scoreboard);
+  showInline(dealBtn);
+}
+
+//event listeners
+setBet.addEventListener("click", confirmBet);
+changeBetBtn.addEventListener("click", changeBet);
+
+dealBtn.addEventListener("click", dealFirstRound);
+hitBtn.addEventListener("click", chooseHit.bind(null, user));
+standBtn.addEventListener("click", chooseStand);
+newRoundBtn.addEventListener("click", newRound);
