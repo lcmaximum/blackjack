@@ -1,54 +1,70 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Basic Blackjack</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script defer src="script.js"></script>
+    <link href="style.css" rel="stylesheet"></link>
+    <title>Static Template</title>
   </head>
   <body>
-    <h1>Basic Blackjack</h1>
-    <div id="player-msg-div">
-      <h3>Welcome! Please place a bet to begin.</h3>
-    </div>
-    <div id="bank">
-      <h3>Your bank: <span id="user-money"></span></h3>
-      <input id="user-bet" placeholder="Amount to bet" /><br />
-      <button id="confirm-bet">Confirm</button>
-      <p id="bet-msg-area"></p>
+  
+    
+      
+ 
+<div id="bank">  
+
+  <div style="display:flex">
+    <div style="visibility:visible;" class='bank-flex'>Your bank: <span id="user-money"></span></div>
+  
+    <div id="bet-msg-area" style="visibility:visible" class='bank-flex'></div> 
+ 
+    <button id="change-bet" class='bank-flex' style="display: none">change bet</button>
+    <button id="hide-show-bank" class='bank-flex' onclick="toggleBank()" style="visibility:hidden; background: green">toggle bank</button>
+  </div>
+      <p><input
+        id="user-bet"
+        placeholder="Amount to bet"
+        autocomplete="off"
+        style="display: block;"
+      />
+      <button id="set-bet" style="display: block;">Set Bet</button>
+      
+    </p>
+
+  </div>
+
+
+    <div id="confirmation">
+      <div id="confirmation-msg" ></div>
+      <div id="outcome-msg"></div></div>
+ <div id='gameplay' style='visibility:hidden'>
+      <div id='score-board' style='display:none'>
+        <div id='dealer-score'>Dealer: <span id='dealer-points'>0</span></div>
+        <div id='user-score'>You: <span id='user-points'>0</span></div>
+      </div>
+  <div id="msg-space"></div>
+
+  <div id='play-area'>
+  <div id='dealer-space' class='player-div'>
+
+  </div>
+  
+  <div id='user-space' class='player-div'>
+  
+  </div></div>
+  
+  <div id='control-panel'>
+    <button id='deal-btn' class='play-btn'>Deal</button>
+    <button id='hit-btn' class='play-btn'>Hit</button>
+    <button id='stand-btn' class='play-btn'>Stand</button>
+    <button id='new-round-btn' class='play-btn'>New Round</button>
+  </div>
     </div>
 
-    <div id="layout">
-      <div class="column" id="column-1">
-        <div id="deal-new-game" class="major-div">
-          <button id="deal-button">Deal</button>
-          <button id="hit-button">Hit</button>
-          <button id="stand-button">Stand</button>
-          <button id="new-game-button">New Game</button>
-        </div>
-      </div>
-      <div id="gameplay">
-        <div id="column-2" class="column">
-          <div id="dealer-side" class="play-side major-div">
-            <div id="dealer-hand" class="hand">
-              <div class="card face-down round-1" id="secret-card"></div>
-              <div class="card face-up round-1" id="dealer-card-1"></div>
-              <div class="extra-cards" id="dealer-extra-cards"></div>
-            </div>
-            <div id="dealer-score" class="score">Dealer score: 0</div>
-          </div>
-          <div id="player-side" class="play-side major-div">
-            <div id="player-hand" class="hand">
-              <div class="card face-up round-1" id="player-card-1"></div>
-              <div class="card face-up round-1" id="player-card-2"></div>
-              <div class="extra-cards" id="player-extra-cards"></div>
-            </div>
-            <div id="player-score" class="score">Your Score:0</div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+</p>
+</div>
   </body>
 </html>
