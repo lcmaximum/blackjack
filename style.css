@@ -1,126 +1,117 @@
-html,
-body {
-  height: 100%;
-  width: 100%;
+html {
+  max-width: 70ch;
+  padding: 3em 1em;
+  margin: auto;
+  line-height: 1.75;
+  font-size: 1.25em;
   font-family: sans-serif;
-  background-color: rgb(57, 203, 37);
 }
 
-#layout {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 200px 200px;
+body {
+  background: rgb(164, 202, 120);
 }
 
-input {
-  width: 190px;
-  height: 25px;
-  border-radius: 10px;
-  font-size: 16px;
-  text-align: center;
-}
-
-#player-msg-div {
-  min-height: 40px;
-  max-width: 900px;
-  background-color: green;
-  color: yellow;
-  font-weight: 700;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
+.bank-flex {
+  background: green;
+  color: goldenrod;
   border: solid;
-  min-height: 600px;
+  border-radius: 10px;
+  height: 50px;
+  padding: 5px;
+  margin: 5px;
 }
 
-.major-div {
-  min-height: 200px;
-  border: dotted;
-}
-
-.hand {
-  margin-left: 5%;
-  margin-top: 5%;
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
 .card {
-  border: solid green;
-  background-color: white;
-  border-radius: 20%;
-  height: 100px;
-  width: 75px;
+  height: 75px;
+  width: 50px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 3px;
   text-align: right;
-
-  font-size: 38px;
-  margin-right: 4px;
-  padding: 4px;
+  line-height: 1.25;
+  margin: 1%;
+  background-color: white;
 }
 
-#deck-div {
+.player-div {
+  min-height: 150px;
+  border-radius: 25px;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  background-color: green;
 }
 
-.extra-cards {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+#deal-btn {
+  border: 3px solid green;
 }
 
-.score {
-  font-size: 26px;
+#hit-btn {
+  border: 3px solid magenta;
+}
+
+#stand-btn {
+  border: 3px solid cornflowerblue;
+}
+
+#new-round-btn {
+  border: 3px solid darkblue;
+}
+
+.play-btn {
+  min-height: 50px;
+  min-width: 75px;
+}
+
+.play-btn:hover {
+  background-color: black;
+  color: white;
 }
 
 button {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  min-width: 50px;
+  min-height: 25px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+input {
+  border-radius: 8px;
+  font-size: 1.05em;
+  text-align: center;
+}
+
+#bank {
+  position: fixed;
+  bottom: 0;
+  height: 33%;
+  width: 90%;
+  transition: 1s;
+  background-color: rgb(136, 13, 13);
+  color: goldenrod;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#bet-msg-area {
   font-size: 22px;
-  font-weight: 500;
-  height: 25%;
-  width: 100%;
-  color: yellow;
-  border-radius: 10px;
+  color: goldenrod;
 }
 
-#confirm-bet {
-  color: black;
-  width: 200px;
-  border-radius: 10px;
-}
-#deal-button {
-  border: solid yellow;
-  background-color: limegreen;
+#score-board {
+  font-weight: 600;
+  font-size: 28px;
 }
 
-#hit-button {
-  background-color: lawngreen;
-}
-#stand-button {
-  background-color: cadetblue;
-}
-
-#new-game-button {
-  background-color: deeppink;
-
-  height: 25%;
-  width: 100%;
+#msg-space {
+  border: dotted goldenrod;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-@media (max-width: 450px) {
-  .layout {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card {
-    height: 50px;
-    width: 25px;
-    font-size: 12px;
-  }
+#play-area {
+  background-color: green;
+  border: solid 1px darkgreen;
+  border-radius: 25px;
 }
