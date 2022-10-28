@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  background: rgb(164, 202, 120);
+  background: rgb(124, 192, 46);
 }
 
 .bank-flex {
@@ -34,10 +34,11 @@ body {
 }
 
 .player-div {
-  min-height: 150px;
+  min-height: 100px;
   border-radius: 25px;
   display: flex;
   background-color: green;
+  align-items: center;
 }
 
 #deal-btn {
@@ -88,7 +89,7 @@ input {
   height: 33%;
   width: 90%;
   transition: 1s;
-  background-color: rgb(136, 13, 13);
+  background-color: #bada55;
   color: goldenrod;
   padding: 10px;
   border-radius: 10px;
@@ -102,11 +103,20 @@ input {
 #score-board {
   font-weight: 600;
   font-size: 28px;
+  position: relative;
+
+  text-align: right;
+  padding-right: 1ch;
+  color: #bada55;
 }
 
 #msg-space {
+  color: darkgreen;
   border: dotted goldenrod;
-  font-size: 28px;
+  border-radius: 10px;
+  margin: 1ch;
+  text-align: center;
+  font-size: 24px;
   font-weight: bold;
 }
 
