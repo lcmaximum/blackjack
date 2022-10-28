@@ -17,11 +17,10 @@
 
   <div style="display:flex">
     <div style="visibility:visible;" class='bank-flex'>Your bank: <span id="user-money"></span></div>
-  
-    <div id="bet-msg-area" style="visibility:visible" class='bank-flex'></div> 
+  <div id="bet-msg-area" style="visibility:hidden" class="bank-flex"></div>
  
     <button id="change-bet" class='bank-flex' style="display: none">change bet</button>
-    <button id="hide-show-bank" class='bank-flex' onclick="toggleBank()" style="visibility:hidden; background: green">toggle bank</button>
+    <button id="hide-show-bank" class='bank-flex' onclick="toggleBank()" style="display:none">toggle bank</button>
   </div>
       <p><input
         id="user-bet"
@@ -36,25 +35,24 @@
   </div>
 
 
-    <div id="confirmation">
-      <div id="confirmation-msg" ></div>
-      <div id="outcome-msg"></div></div>
+
+      <div id="outcome-msg"></div>
  <div id='gameplay' style='visibility:hidden'>
-      <div id='score-board' style='display:none'>
-        <div id='dealer-score'>Dealer: <span id='dealer-points'>0</span></div>
-        <div id='user-score'>You: <span id='user-points'>0</span></div>
-      </div>
-  <div id="msg-space"></div>
+
+  
 
   <div id='play-area'>
   <div id='dealer-space' class='player-div'>
 
   </div>
-  
+        <div id='score-board' style='display:none'>
+        <div id='dealer-score'>Dealer: <span id='dealer-points'>0</span></div>
+        <div id='user-score'>You: <span id='user-points'>0</span></div>
+      </div>
   <div id='user-space' class='player-div'>
   
   </div></div>
-  
+  <div id="msg-space"></div>
   <div id='control-panel'>
     <button id='deal-btn' class='play-btn'>Deal</button>
     <button id='hit-btn' class='play-btn'>Hit</button>
