@@ -68,6 +68,7 @@ function confirmBet() {
     betMsgArea.style.fontWeight = "500";
     hide(userBet);
     hide(setBet);
+    betMsgArea.style.visibility = "visible";
     betMsgArea.textContent = "Bet set at $" + bet + ".";
     msgSpace.textContent = "Press Deal to begin.";
     showBlock(changeBetBtn);
@@ -83,6 +84,7 @@ function confirmBet() {
 function changeBet() {
   newRound();
   showBank();
+  betMsgArea.style.visibility = "hidden";
   toggleBankBtn.style.visibility = "hidden";
   dealerPoints.textContent = dealer.score;
   userPoints.textContent = user.score;
